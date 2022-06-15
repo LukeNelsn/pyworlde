@@ -1,8 +1,9 @@
 # wordle
 import random
-import nltk
-from nltk.corpus import words
-words_5 = [word for word in words.words() if len(word) == 5]
+# import nltk
+# from nltk.corpus import words
+words_5 = list(open('wordle-answers-alphabetical.txt', 'r'))
+words_5 = list(map(lambda s: s.strip(), words_5))
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -14,12 +15,12 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-print(color.BOLD + color.DARKCYAN + '\nWelcome to WORDLE' + color.END)#,'\nBuilt by Luke\n')
 count = 0
 guesses = 0
 score = 0
 streak = 0
 def wordleGame(): 
+    print(color.BOLD + color.DARKCYAN + '\nWORDLE\n' + color.END)#,'\nBuilt by Luke\n')
     word = (words_5[random.randrange(0,len(words_5))]).lower()
     def guessingFunction():
         global count, guesses, score, streak       
@@ -34,11 +35,13 @@ def wordleGame():
             except ValueError:
                 print(color.YELLOW + 'Guess must be 5 letters long & in the English dictionary' + color.END)
         if word_guess == word:
-            print(color.GREEN + color.BOLD + 'You Win!' + color.END)
+            print(color.GREEN + color.BOLD + word + '\n' + 'You Win!' + color.END)
             score += 1
             print(color.PURPLE + '\nScore: ' + color.BOLD + str(score) + color.END)
             streak += 1
             print(color.PURPLE + '\nStreak: ' + color.BOLD + str(streak) + color.END)
+            count = 0
+            guesses = 0
         elif word_guess != word:
             word_index = 0
             word_guess_ouput = []
@@ -63,6 +66,8 @@ def wordleGame():
                 streak = 0
                 print(color.PURPLE + '\nStreak: ' + color.BOLD + str(streak) + color.END)
                 print('\n' + color.RED + color.BOLD + 'You lose...\nThe correct word was:', color.UNDERLINE + color.YELLOW + word + color.END)
+                count = 0
+                guesses = 0
             else:
                 guessingFunction()   
     guessingFunction()
