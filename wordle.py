@@ -1,7 +1,5 @@
 # wordle
 import random
-# import nltk
-# from nltk.corpus import words
 words_5 = list(open('wordle-answers-alphabetical.txt', 'r'))
 words_5 = list(map(lambda s: s.strip(), words_5))
 class color:
@@ -20,7 +18,7 @@ guesses = 0
 score = 0
 streak = 0
 def wordleGame(): 
-    print(color.BOLD + color.DARKCYAN + '\nWORDLE\n' + color.END)#,'\nBuilt by Luke\n')
+    print(color.BOLD + color.DARKCYAN + '\nWORDLE\n' + color.END)
     word = (words_5[random.randrange(0,len(words_5))]).lower()
     def guessingFunction():
         global count, guesses, score, streak       
